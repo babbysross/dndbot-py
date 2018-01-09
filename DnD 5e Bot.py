@@ -6,7 +6,7 @@ from openpyxl import *
 
 def char_gen():
 	# Generate character race
-	char_race = random.choice(['Human', 'Elf' 'Halfling', 'Dwarf', 'Dragonborn', 'Gnome', 'Half-Elf', 'Half-Orc', 'Tiefling', 'Aasimar', 'Aarakocra', 'Goliath', 'Genasi', 'Bugbear', 'Firbolg', 'Goblin', 'Hobgoblin', 'Kenku', 'Kobold', 'Lizardfolk', 'Orc', 'Yuan-Ti', 'Tabaxi', 'Triton', 'Tortle'])
+	char_race = random.choice(['Human', 'Elf' 'Halfling', 'Dwarf', 'Dragonborn', 'Gnome', 'Half-Elf', 'Half-Orc', 'Tiefling'])
 	# Load spreadsheets with openpyxl
 	wb_name = load_workbook('character_names.xlsx')
 	ws_name = wb_name[char_race]
