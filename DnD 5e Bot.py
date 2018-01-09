@@ -1,17 +1,27 @@
 #DnD 5e Bot.py
 
-import openpyxl
+import string
+from random import *
+from openpyxl import *
 
 def char_gen():
-	# Generates a character for the user. Asks for a name and provides a race, class and random stats tailored to the class.
+	# Generate character race
+	char_race = random.choice(['Human', 'Elf' 'Halfling', 'Dwarf', 'Dragonborn', 'Gnome', 'Half-Elf', 'Half-Orc', 'Tiefling', 'Aasimar', 'Aarakocra', 'Goliath', 'Genasi', 'Bugbear', 'Firbolg', 'Goblin', 'Hobgoblin', 'Kenku', 'Kobold', 'Lizardfolk', 'Orc', 'Yuan-Ti', 'Tabaxi', 'Triton', 'Tortle'])
+	# Load spreadsheets with openpyxl
+	wb_name = load_workbook('character_names.xlsx')
+	ws_name = wb_name[char_race]
+	# Generate a character for the user. Ask for a name and provide a race, class and random stats tailored to the class.
 	print("Initialising character generator.")
+	# This is a hack, will update to use a spreadsheet
 	print("Shall I generate a name or do you have one in mind? (generate/type)")
 	name_method = input()
 	if name_method == "generate":
+		fname_no = randint(1,)
+		fname_ltr = random.choice('BC') # proof of concept, use in a function or something
 		print("Your name is %s and you are a %s %s" % (char_name, char_race, char_class))
 	elif name_method == "type":
 		custom_name = input("Please enter your character's name: ")
-		
+		print("Your name is %s and you are a %s %s" % (custom_name, char_race, char_class))
 
 def encounter_gen():
 	# Generates an encounter for the user, giving a situation, number of enemies and enemy types/stats.
