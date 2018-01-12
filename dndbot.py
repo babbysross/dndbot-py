@@ -1,10 +1,17 @@
-from random import randint, choice
+from random import randint, choice, sample
 from openpyxl import load_workbook
 
 def char_gen():
-    """Generate character race"""
+    """Generate character name, race, class and stats"""
+    # Generate Race and Class
     char_race = choice(['Human', 'Elf', 'Halfling', 'Dwarf', 'Dragonborn', 'Gnome', 'Half-Elf', 'Half-Orc', 'Tiefling'])
     char_class = choice(['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard'])
+    # Generate and sort stats, high to low
+    stats = []
+    for i in range(6):
+        dicerolls = sample(range(1, 6), 4)
+        stats.append(sum(dicerolls) - min(dicerolls))
+        stats.sort()
     # Load spreadsheets with openpyxl
     wb_name = load_workbook('character_names.xlsx')
     ws_name = wb_name[str(char_race)]
@@ -14,14 +21,18 @@ def char_gen():
     print("Shall I generate a name or do you have one in mind? (generate/type)")
     name_method = input()
     if name_method == "generate":
+        # Find excel field for first name
         fname = ws_name[choice('BC') + str(randint(2, 51))]
-        print(fname.value)
+        # Find excel field for last name
         lname = ws_name['D' + str(randint(2, 51))]
-        print(lname.value)
+        # Print generated name, race, class and stats.
         print("Your name is %s %s and you are a %s %s" % (fname.value, lname.value, char_race, char_class))
+        print("Stats: STR: %s DEX: %s CON: %s INT: %s WIS: %s CHA: %s" % (stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]))
     elif name_method == "type":
         custom_name = input("Please enter your character's name: ")
+        # Print custom name, as well as race, class and stats.
         print("Your name is %s and you are a %s %s" % (custom_name, char_race, char_class))
+        print("Stats: STR: %s DEX: %s CON: %s INT: %s WIS: %s CHA: %s" % (stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]))
 
 def encounter_gen():
     """Generates an encounter for the user.
