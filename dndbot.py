@@ -1,16 +1,20 @@
-from random import randint, choice, sample
+'''python dnd bot'''
+
+from random import randint, choice
 from openpyxl import load_workbook
+from dice import roll
 
 def char_gen():
     """Generate character name, race, class and stats"""
     # Generate Race and Class
-    char_race = choice(['Human', 'Elf', 'Halfling', 'Dwarf', 'Dragonborn', 'Gnome', 'Half-Elf', 'Half-Orc', 'Tiefling'])
-    char_class = choice(['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard'])
+    char_race = choice(['Human', 'Elf', 'Halfling', 'Dwarf', 'Dragonborn', 'Gnome', 'Half-Elf',
+                        'Half-Orc', 'Tiefling'])
+    char_class = choice(['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin',
+                         'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard'])
     # Generate and sort stats, high to low
     stats = []
-    for i in range(6):
-        dicerolls = sample(range(1, 6), 4)
-        stats.append(sum(dicerolls) - min(dicerolls))
+    for _ in range(6):
+        stats.append(sum(roll('4d6^3')))
         stats.sort()
     # Load spreadsheets with openpyxl
     wb_name = load_workbook('character_names.xlsx')
@@ -26,26 +30,29 @@ def char_gen():
         # Find excel field for last name
         lname = ws_name['D' + str(randint(2, 51))]
         # Print generated name, race, class and stats.
-        print("Your name is %s %s and you are a %s %s" % (fname.value, lname.value, char_race, char_class))
-        print("Stats: STR: %s DEX: %s CON: %s INT: %s WIS: %s CHA: %s" % (stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]))
+        print("Your name is %s %s and you are a %s %s" % (fname.value, lname.value,
+                                                          char_race, char_class))
+        print("Stats: STR: %s DEX: %s CON: %s INT: %s WIS: %s CHA: %s" %
+              (stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]))
     elif name_method == "type":
         custom_name = input("Please enter your character's name: ")
         # Print custom name, as well as race, class and stats.
         print("Your name is %s and you are a %s %s" % (custom_name, char_race, char_class))
-        print("Stats: STR: %s DEX: %s CON: %s INT: %s WIS: %s CHA: %s" % (stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]))
+        print("Stats: STR: %s DEX: %s CON: %s INT: %s WIS: %s CHA: %s" %
+              (stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]))
 
 def encounter_gen():
-    """Generates an encounter for the user.
+    """Generate an encounter for the user.
 	Gives a situation, number of enemies and enemy types/stats."""
     print("Initialising encounter generator.")
 
 def dun_gen():
-    """Generates a dungeon for the user.
-    Produces map, 3 encounters and a boss (highlighted on map) & details treasure guarded by boss."""
+    """Generate a dungeon for the user.
+    Produces map, 3 encounters, a boss & details treasure guarded by boss."""
     print("Initialising dungeon generator.")
 
 def boss_gen():
-    """Generates a final boss for the user. Asks for a name and provides a type, attacks and stats."""
+    """Generate a final boss for the user. Asks for a name & provides a type, attacks & stats."""
     print("Initialising boss generator.")
 
 def start_prompt():
