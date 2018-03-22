@@ -22,24 +22,27 @@ def char_gen():
     """Generate a character for the user.
 	Ask for a name and provide a race, class and random stats tailored to the class."""
     print("Initialising character generator.")
-    print("Shall I generate a name or do you have one in mind? (generate/type)")
-    name_method = input()
-    if name_method == "generate":
-        # Find excel field for first name
-        fname = ws_name[choice('BC') + str(randint(2, 51))]
-        # Find excel field for last name
-        lname = ws_name['D' + str(randint(2, 51))]
-        # Print generated name, race, class and stats.
-        print("Your name is %s %s and you are a %s %s" % (fname.value, lname.value,
-                                                          char_race, char_class))
-        print("Stats: STR: %s DEX: %s CON: %s INT: %s WIS: %s CHA: %s" %
-              (stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]))
-    elif name_method == "type":
-        custom_name = input("Please enter your character's name: ")
-        # Print custom name, as well as race, class and stats.
-        print("Your name is %s and you are a %s %s" % (custom_name, char_race, char_class))
-        print("Stats: STR: %s DEX: %s CON: %s INT: %s WIS: %s CHA: %s" %
-              (stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]))
+    while True:
+        print("Shall I generate a name or do you have one in mind? (generate/type)")
+        name_method = input()
+        if name_method == "generate":
+            # Find excel field for first name
+            fname = ws_name[choice('BC') + str(randint(2, 51))]
+            # Find excel field for last name
+            lname = ws_name['D' + str(randint(2, 51))]
+            # Print generated name, race, class and stats.
+            print("Your name is %s %s and you are a %s %s" % (fname.value, lname.value,
+                                                            char_race, char_class))
+            print("Stats: STR: %s DEX: %s CON: %s INT: %s WIS: %s CHA: %s" %
+                (stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]))
+            break
+        elif name_method == "type":
+            custom_name = input("Please enter your character's name: ")
+            # Print custom name, as well as race, class and stats.
+            print("Your name is %s and you are a %s %s" % (custom_name, char_race, char_class))
+            print("Stats: STR: %s DEX: %s CON: %s INT: %s WIS: %s CHA: %s" %
+                (stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]))
+            break
 
 def encounter_gen():
     """Generate an encounter for the user.
